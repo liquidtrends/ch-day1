@@ -1,17 +1,26 @@
 $(function(){
-	var button = $("button");
 	
-	button.on("click", function() {
-		console.log("Button was clicked");
-		var newItem = ($("input").val());
+	$("input").on("keyup", function(e) {
 
-		var newLi = $("<li>").text(newItem);
+		console.log(this);
+		if (e.keyCode == 13) {
+		var $this = $(this);
 
-		if ($("input").val() == "");
-		return false;
-
-		$("ul").append(newLi);
+		var newItem = ($this.val());
+		if (newItem !== "") {
+			$("ul").append($("<li>").text(newItem));
+			$this.val('');
+		  }
+		}
 
 	});
+
+	$("button#random").on("click", function(){
+		var itemList = $("li");
+		var randomIndex = Math.floor(Math.random() * (itemList.length - 1));
+		var randomItem = itemList[randomIndex];
+		$("div#selected-random").text($(randomItem).text());
+	});
+
 });
 
